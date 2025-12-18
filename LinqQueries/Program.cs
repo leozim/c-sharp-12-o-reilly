@@ -98,4 +98,9 @@ internal class Program
         Console.WriteLine($"{nameof(concat)} : [{string.Join(" ", concat)}]");
         Console.WriteLine($"{nameof(union)} ignora repetidos : [{string.Join(" ", union)}]");
     }
+
+    private static void QueryExpressions()
+    {
+        
+    }
 }
