@@ -30,11 +30,11 @@ internal class Program
         };
         Console.WriteLine(cardName);
 
-        int cardNumber2 = 3;
+        int cardNumber2 = 13;
         string suite = "spades";
         string cardName2 = (cardNumber2, suite) switch
         {
-            (3, "spades") => "King of spades",
+            (13, "spades") => "King of spades",
             (_, _) => "Pip card"
         };
 
