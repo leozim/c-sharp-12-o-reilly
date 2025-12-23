@@ -29,6 +29,8 @@ internal class Program
         FluentSyntax();
         NaturalOrdering();
         OtherOperatos();
+        DeferredExecution();
+        Reevaluation();
 
     }
 
@@ -102,5 +104,53 @@ internal class Program
     private static void QueryExpressions()
     {
         
+    }
+    
+    private static void DeferredExecution()
+    {
+        var numbers = new List<int> {1};
+
+        IEnumerable<int> query = numbers.Select(n => n * 10);
+        
+        numbers.Add(2);
+        // this happens because the Query was only contructed and not executed.
+        // the execution is executed after the IEnumerable calls MoveNext()
+        Console.WriteLine($"numbers * 10 = [{string.Join("|", query)}]");
+        // this is called deferred or lazy execution and is the same as what happens with delegates
+        Action a = () => Console.WriteLine("Foo");
+        // We’ve not written anything to the Console yet. Now let’s run it:
+        a();
+        /*
+         All standard query operators provide deferred execution, with the following exceptions:
+            * Operators that return a single element or scalar value, such as First or Count
+            * The following conversion operators: ToArray, ToList, ToDictionary, ToLookup, ToHashSet
+         
+         THESE OPERATORS CAUSE IMMEDIATE QUERY EXECUTION BECAUSE THEIR RESULT TYPES HAVE NO MECHANISM
+         TO PROVIDE DEFERRED EXECUTION. THE COUNT METHOD, FOR INSTANCE, RETURNS A SIMPLE INTEGER,
+         WHICH DOESN'T THEN GET ENUMERATED. 
+         
+         THE FOLLOWING QUERY IS EXECUTED IMMEDIATELY:
+         */
+        int matches = numbers.Where(n => n <= 2).Count();
+        // DEFERRED EXECUTION IS IMPORTANT BECAUSE IT DECOUPLES QUERY CONSTRUCTION FROM QUERY EXECUTION.
+        // EVERYTHING IN A SUBQUERY IS SUBJECT TO DEFERRED EXECUTION, INCLUDING AGGREGATION AND CONVERSION METHODS.
+    }
+
+    private static void Reevaluation()
+    {
+        // DEFERRED EXECUTION HAS ANOTHER CONSEQUENCE: A DEFERRED EXECUTION QUERY IS REEVALUATED WHEN YOU REENUMERATE
+        var numbers = new List<int> {1, 2};
+        IEnumerable<int> query = numbers.Select(n => n * 10);
+        Console.WriteLine($"REEVALUATION: [{string.Join(" ", query)}]");
+        
+        // reevaluated
+        numbers.Clear();
+        foreach (var n in numbers) Console.WriteLine(n + "|"); // nothing
+        
+        // Defeating reevaluation by calling a CONVERSION OPERATOR such as ToArray or ToList.
+        // BECAUSE THEY COPIES THE OUTPUT OF A QUERY TO AN ARRAY/LIST
+        numbers.AddRange([1, 2]);
+        IEnumerable<int> timesTen = numbers.Select(n => n * 10).ToList();
+        Console.WriteLine($"REEVALUATION: [{string.Join(" ", query)}]"); // nothing
     }
 }
