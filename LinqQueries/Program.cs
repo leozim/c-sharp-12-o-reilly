@@ -150,7 +150,62 @@ internal class Program
         // Defeating reevaluation by calling a CONVERSION OPERATOR such as ToArray or ToList.
         // BECAUSE THEY COPIES THE OUTPUT OF A QUERY TO AN ARRAY/LIST
         numbers.AddRange([1, 2]);
-        IEnumerable<int> timesTen = numbers.Select(n => n * 10).ToList();
-        Console.WriteLine($"REEVALUATION: [{string.Join(" ", query)}]"); // nothing
+        IEnumerable<int> timesTen = numbers
+            .Select(n => n * 10)
+            .ToList();
+        
+        numbers.Clear();
+        Console.WriteLine($"REEVALUATION: [{string.Join(" ", timesTen)}]"); // nothing
+        CapturedVariables();
     }
+
+    private static void CapturedVariables()
+    {
+        /*
+         * If your query’s lambda e pressions capture outer ariables, the query will
+           honor the alue of those ariables at the time the query runs.
+         */
+        int[] numbers = { 1, 2 }; 
+        int factor = 10; 
+        IEnumerable<int> query = numbers.Select (n => n * factor); 
+        factor = 20; 
+        Console.WriteLine($"CapturedVariables: [{string.Join(" ", query)}]");   // 20|40
+
+        IEnumerable<char> cQuery = "Not what you might expect";
+        string vowels = "aeiou";
+
+        // for (int i = 0; i < vowels.Length; i++) cQuery = cQuery.Where(c => c != vowels[i]);
+        // foreach (char c in cQuery) Console.WriteLine(c); // IndexOutOfRangeException
+        
+        for (int i = 0; i < vowels.Length; i++)
+        {
+            char vowel = vowels[i];
+            cQuery = cQuery.Where(c => c != vowel);
+        }
+
+        Console.WriteLine($"CapturedVariables: [{string.Join(" ", cQuery)}]");
+        
+        // A foreach loop also resolve the problem
+        // foreach (char vowel in vowels) cQuery = cQuery.Where(c => c != vowel);
+    }
+
+    private static void IntoKeyword()
+    {
+        string[] names = {"Tom", "Harry", "Dicky", "sandra"};
+        IEnumerable<string> query = 
+            from   
+                n in names 
+            select n.Replace ("a", "").Replace ("e", "").Replace ("i", "") 
+                .Replace ("o", "").Replace ("u", "") 
+            into noVowel 
+            where noVowel.Length > 2 orderby noVowel select noVowel;
+        
+        /*
+         THE ONLY PLACE YOU CAN USE into IS AFTER A Select or Group CLAUSE. into
+         "RESTARTS" A QUERY, ALLOWING YOU TO INTRODUCE FRESH Where, OrderBy AND 
+         Select CLAUSES.
+         */
+    }
+    
+    
 }
