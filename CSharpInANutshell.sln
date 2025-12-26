@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreatingTypes", "CreatingTy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqQueries", "LinqQueries\LinqQueries.csproj", "{13D515C0-6176-44BA-85CC-23E90D60FCEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqOperators", "LinqOperators\LinqOperators.csproj", "{C685B20A-0D8E-4E27-BD21-6616C461B0DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{13D515C0-6176-44BA-85CC-23E90D60FCEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13D515C0-6176-44BA-85CC-23E90D60FCEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13D515C0-6176-44BA-85CC-23E90D60FCEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C685B20A-0D8E-4E27-BD21-6616C461B0DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C685B20A-0D8E-4E27-BD21-6616C461B0DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C685B20A-0D8E-4E27-BD21-6616C461B0DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C685B20A-0D8E-4E27-BD21-6616C461B0DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
