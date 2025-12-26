@@ -206,6 +206,11 @@ internal class Program
          Select CLAUSES.
          */
     }
-    
-    
+
+    private static void InterpretedQueries()
+    {
+        /*
+         * 
+         */
+    }
 }
