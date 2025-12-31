@@ -12,7 +12,36 @@ internal class Program
         // WritingPlugInMethodsWithDelegates();
         // InstanceTarget();
         // MulticastDelegate();
-        DelegateVersusInterface();
+        // DelegateVersusInterface();
+        DelegateCompatibility();
+    }
+    
+    delegate void D();
+    delegate void D1();
+    delegate void D2();
+    private static void Method1() {}
+    private static void DelegateCompatibility()
+    {
+        /*
+         * DELEGATE TYPES ARE ALL INCOMPATIBLE WITH ONE ANOTHER, EVEN IF THEIR
+         * SIGNATURES ARE THE SAME:
+         */
+
+        // D1 d1 = Method1;
+        // D2 d2 = d1; // COMPILE ERROR;
+        // D2 d2 = new D2(d1); // It is permitted
+        
+        /*
+         * DELEGATE INSTANCES ARE CONSIDERED EQUAL IF THEY HAVE THE SAME METHODS TARGETS:
+         */
+        D d1 = Method1;
+        D d2 = Method1;
+        Console.WriteLine(d1 == d2); // true
+        
+        /*
+         * MULTICAST DELEGATES ARE CONSIDERED EQUAL IF THEY REFERENCE THE SAME METHODS IN
+         * THE SAME ORDER.
+         */
     }
 
     private static void DelegateVersusInterface()
