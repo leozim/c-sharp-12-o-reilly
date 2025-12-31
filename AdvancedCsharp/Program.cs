@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using AdvancedCsharp;
+using AdvancedCsharp.DelegateVersusInterface;
+using Util = AdvancedCsharp.Util;
 
 internal class Program
 {
@@ -9,7 +11,16 @@ internal class Program
         // CreatingDelegate();
         // WritingPlugInMethodsWithDelegates();
         // InstanceTarget();
-        MulticastDelegate();
+        // MulticastDelegate();
+        DelegateVersusInterface();
+    }
+
+    private static void DelegateVersusInterface()
+    {
+        int[] values = {1, 2, 4};
+        AdvancedCsharp.DelegateVersusInterface.Util.TransformAll(values, new Squarer());
+        
+        foreach (var value in values) Console.WriteLine(value);
     }
 
     private static void MulticastDelegate()
@@ -65,23 +76,29 @@ internal class Program
     {
         int[] values = new [] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         
-        Transformer(values, Square);
+        Transformer(values, (Func<int,int>)Square);
 
         Console.WriteLine($"Values: [{string.Join(", ", values)}]");
     }
 
     private static void CreatingDelegate()
     {
-        MyTransformer t = Square; // shorthand to MyTransformer t = new MyTransformer(Square)
+        MyTransformer<int> t = Square; // shorthand to MyTransformer t = new MyTransformer(Square)
         int answer = t(3); // t(3) is a shorthand to t.Invoke(3);
         Console.WriteLine(answer);
     }
 
-    private static void Transformer(int[] values, MyTransformer transformer)
+    private static void Transformer<T>(T[] values, MyTransformer<T> transformer)
     {
         for (int i = 0; i < values.Length; i++)  values[i] = transformer(values[i]);
     }
+    
+    private static void Transformer<T>(T[] values, Func<T,T> transformer)
+    {
+        for (int i = 0; i < values.Length; i++)  values[i] = transformer(values[i]);
+    }
+    
     private static int Square(int x) => x * x;
     private static int Cube(int x ) => x * x * x;
-    private delegate int MyTransformer(int x);
+    private delegate T MyTransformer<T>(T x);
 }
