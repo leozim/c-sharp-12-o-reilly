@@ -2,6 +2,7 @@
 
 using AdvancedCsharp;
 using AdvancedCsharp.DelegateVersusInterface;
+using AdvancedCsharp.Event;
 using Util = AdvancedCsharp.Util;
 
 internal class Program
@@ -13,9 +14,31 @@ internal class Program
         // InstanceTarget();
         // MulticastDelegate();
         // DelegateVersusInterface();
-        DelegateCompatibility();
+        // DelegateCompatibility();
+        IntroductionToEvents();
     }
     
+    public static void IntroductionToEvents()
+    {
+        Stock stock = new Stock("THPW");
+        stock.Price = 27.10M;
+        // Register with the PriceChanged event
+        stock.PriceChanged += stockPriceChanged;
+        stock.Price = 31.59M;
+        stock.Price = 36.59M;
+        stock.Price = 35.59M;
+    }
+
+    private static void stockPriceChanged(object source, PriceChangedEventArgs e)
+    {
+        if ((e.NewPrice - e.LastPrice) / e.LastPrice > 0.1M)
+        {
+            Console.WriteLine("Alert, 10% stock price increase!");
+        }
+        Console.WriteLine($"LastPrice: {e.LastPrice}");
+        Console.WriteLine($"NewPrice: {e.NewPrice}");
+    }
+
     delegate void D();
     delegate void D1();
     delegate void D2();
