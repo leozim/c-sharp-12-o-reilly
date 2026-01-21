@@ -16,6 +16,12 @@
  * IN ORDER TO 'MODIFY' AN IMMUTABLE OBJECT, YOU MUST CREATE A NEW ONE AND
  * COPY OVER THE DATA WHILE INCORPORATING YOUR MODIFICATIONS - THIS IS CALLED
  * NONDESTRUCTIVE MUTATION.
+ *
+ *  Structural equality
+    means that two instances are the same if their data is the same (as with
+    tuples). Records gi e you structural equality by default—regardless of
+    whether the underlying type is a class or struct—without any boilerplate
+    code
  */
 
 public record FirstRecord();
