@@ -44,12 +44,11 @@ public static class StartingATask
     {
         Task task = Task
             .Factory
-            .StartNew(
-                () =>
-                    {
-                        Thread.Sleep(2000);
-                        Console.WriteLine("waiting...");
-                    },
+            .StartNew(() =>
+                {
+                    Thread.Sleep(2000);
+                    Console.WriteLine("waiting...");
+                },
                 TaskCreationOptions.LongRunning);
         Console.WriteLine(task.IsCompleted);
         task.Wait();

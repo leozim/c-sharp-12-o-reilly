@@ -10,21 +10,6 @@ public static class Tasks
      * threads altogether while waiting on I/O-bound operations.
      */
 
-    public static void Exceptions()
-    {
-        
-    }
-    
-    public static void Continuations()
-    {
-        
-    }
-    
-    public static void TaskCompletionSource()
-    {
-        
-    }
-    
     public static void TaskDelay()
     {
         // assynchronus form of Thread.Sleep()
