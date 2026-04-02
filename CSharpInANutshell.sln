@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedCsharp", "AdvancedC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcurrencyAndAsynchrony", "ConcurrencyAndAsynchrony\ConcurrencyAndAsynchrony.csproj", "{64B89150-DEEC-4DCE-B7DE-D586EDD0F57F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumerationAndIterators", "EnumerationAndIterators\EnumerationAndIterators.csproj", "{3A8BA91F-FB7D-474F-9A23-B5712521A1CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{64B89150-DEEC-4DCE-B7DE-D586EDD0F57F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64B89150-DEEC-4DCE-B7DE-D586EDD0F57F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64B89150-DEEC-4DCE-B7DE-D586EDD0F57F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A8BA91F-FB7D-474F-9A23-B5712521A1CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A8BA91F-FB7D-474F-9A23-B5712521A1CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A8BA91F-FB7D-474F-9A23-B5712521A1CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A8BA91F-FB7D-474F-9A23-B5712521A1CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
