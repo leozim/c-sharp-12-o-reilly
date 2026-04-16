@@ -45,6 +45,16 @@ public class LearningIterators
         }
     }
 
+    public IEnumerable<int> EvenNumbersOnly(IEnumerable<int> sequence)
+    {
+        foreach (int number in sequence) if (number % 2 == 0) yield return number;
+    }
+
+    public IEnumerable<int> Consumable()
+    {
+        return EvenNumbersOnly(Fibs(6));
+    }
+
     public IEnumerable<string> Foo()
     {
         yield return "foo";
@@ -57,4 +67,16 @@ public class LearningIterators
      * 'yield break' statement to indicate that the iterator block should exit early,
      * without returning more element.
      */
+
+    public IEnumerable<string> Bar(bool breakEarly)
+    {
+        yield return "bar";
+        yield return "baz";
+
+        if (breakEarly) 
+            yield break;
+        
+        yield return "buzz";
+    }
+    
 }
