@@ -1,9 +1,9 @@
 ﻿namespace AdvancedCsharp;
 
-public class LearningEnumeration
+public static class LearningEnumeration
 {
     /*
-     * Here is the high-level way of iterating through the characters in the word "bee"
+     * Here is the high-level way of iterating through the characters in the word "beer"
      * using a FOREACH statement
      */
     public static void HighLevelIterator()
@@ -26,7 +26,7 @@ public class LearningEnumeration
     }
 }
 
-public class LearningIterators
+public static class LearningIterators
 {
     /*
      * Whereas a FOREACH statemente is a consumer of a enumerator, an iterator is
@@ -34,7 +34,7 @@ public class LearningIterators
      * Below we'll using an iterator to return a fib's sequence
      */
 
-    public IEnumerable<int> Fibs(int fibCount)
+    public static IEnumerable<int> Fibs(int fibCount)
     {
         for (int i = 0, prevFib = 1, curFib = 1; i < fibCount; i++)
         {
@@ -45,17 +45,17 @@ public class LearningIterators
         }
     }
 
-    public IEnumerable<int> EvenNumbersOnly(IEnumerable<int> sequence)
+    public static IEnumerable<int> EvenNumbersOnly(IEnumerable<int> sequence)
     {
         foreach (int number in sequence) if (number % 2 == 0) yield return number;
     }
 
-    public IEnumerable<int> Consumable()
+    public static IEnumerable<int> Consumable()
     {
         return EvenNumbersOnly(Fibs(6));
     }
 
-    public IEnumerable<string> Foo()
+    public static IEnumerable<string> Foo()
     {
         yield return "foo";
         yield return "bar";
@@ -68,7 +68,7 @@ public class LearningIterators
      * without returning more element.
      */
 
-    public IEnumerable<string> Bar(bool breakEarly)
+    public static IEnumerable<string> Bar(bool breakEarly)
     {
         yield return "bar";
         yield return "baz";
