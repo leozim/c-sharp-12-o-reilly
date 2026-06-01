@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LinqOperators.Migrations
 {
     [DbContext(typeof(NutshellContext))]
-    [Migration("20260601144101_LinqOperator")]
+    [Migration("20260601144434_LinqOperator")]
     partial class LinqOperator
     {
         /// <inheritdoc />
@@ -59,9 +59,6 @@ namespace LinqOperators.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ID")
-                        .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");

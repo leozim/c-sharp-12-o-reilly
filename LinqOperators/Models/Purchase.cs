@@ -6,7 +6,6 @@ public class Purchase
 {
   [Key]
   public int Id { get; set; }
-  public int ID { get; set; }
   public int? CustomerID { get; set; }
   public DateTime Date { get; set; }
   public string Description { get; set; }
