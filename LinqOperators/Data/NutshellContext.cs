@@ -12,7 +12,8 @@ public class NutshellContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        const string strConnection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=DominandoEFCore;Integrated Security=True;pooling=True";
+        // lembrar de excluir o BD e recriar de novo com exemplos do curso dominando ef core
+        const string strConnection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=LinqOperators;Integrated Security=True;pooling=True";
 
         optionsBuilder
             .UseSqlServer(strConnection)
