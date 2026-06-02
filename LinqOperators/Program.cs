@@ -13,6 +13,7 @@ internal class Program
         db.Database.EnsureCreated();*/
         WhereFilter(names);
         WhereIndexedFiltering(names);
+        SelectIndexedProjection(names);
     }
     
     private static void WhereFilter(string[] arr)
@@ -51,4 +52,31 @@ internal class Program
 
         new[] {1.0, 1.1, 2.0, 2.1, 3.0, 3.1}.DistinctBy(n => Math.Round(n, 0));
     }
+
+    private static void SelectIndexedProjection(string[] input)
+    {
+        IEnumerable<string> query = input.Select((s, i) => string.Concat(i, "=", s));
+        Console.WriteLine($"{nameof(query)} : [{string.Join(" ", query)}]");
+    }
+    
+    /* JOINING */
+    private static void ListWithoutNavigationProperty()
+    {
+        var dbContext = new NutshellContext();
+        IQueryable<string> query =
+            from c in dbContext.Customers
+            join p in dbContext.Purchases
+                on c.ID equals p.CustomerID
+            select c.Name + " bought a " + p.Description;
+        
+        /*
+            The results match what we would get from a 
+            SelectMany-style query:
+            Tom bought a Bike
+            Tom bought a Holiday
+            Dick bought a Phone
+            Harry bought a Car
+         */
+    }
+    
 }
