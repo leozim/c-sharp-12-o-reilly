@@ -64,9 +64,9 @@ internal class Program
     {
         var dbContext = new NutshellContext();
         IQueryable<string> query =
-            from c in dbContext.Customers
-            join p in dbContext.Purchases
-                on c.ID equals p.CustomerID
+            from c in dbContext.Customers // outer-key-expr
+            join p in dbContext.Purchases // inner-key-expr
+                on c.ID equals p.CustomerID // outer equals inner more efficiently
             select c.Name + " bought a " + p.Description;
         
         /*
@@ -78,5 +78,36 @@ internal class Program
             Harry bought a Car
          */
     }
+
+    private static void FluentSyntaxListWithoutNavigationProperty()
+    {
+        var dbContext = new NutshellContext();
+        var customers = dbContext.Customers.ToList();
+        var purchases = dbContext.Purchases.ToList();
+
+        customers.Join( // outer collection
+            purchases, // inner collection
+            c => c.ID, // outer key selector
+            p => p.CustomerID, // inner key selector
+            (c, p) => new
+            {
+                c.Name,
+                p.Description,
+                p.Price
+            }
+        );
+        
+        customers
+            .Join( // outer collection
+                purchases, // inner collection
+                c => c.ID, // outer key selector
+                p => p.CustomerID, // inner key selector
+                (c, p) => new { c, p}) // this keep c and p in scope
+            .OrderBy(x => x.p.Price)
+            .Select(x => x.c.Name + " bought a " + x.p.Description);
+    }
+    
+    /* GROUP JOIN */
+        
     
 }
