@@ -107,7 +107,36 @@ internal class Program
             .Select(x => x.c.Name + " bought a " + x.p.Description);
     }
     
-    /* GROUP JOIN */
+    /* GROUP JOIN pg 736 */
+    // GroupJoin is note currently supported in EF Core
+    private static void GroupJoinNotSupportedByEFCore()
+    {
+        var dbContext = new NutshellContext();
+        Customer[] customers = dbContext.Customers.ToArray();
+        Purchase[] purchases = dbContext.Purchases.ToArray();
         
+        // The result is a sequence of sequence
+        IEnumerable<IEnumerable<Purchase>> query =
+            from c in customers
+            join p in purchases
+                on c.ID equals p.CustomerID
+            // An into clause translates to GroupJoin only when it appears
+            // directly after a "join" clause. After a "select" or "group"
+            // clause, it means "QUERY CONTINUATION"
+            into custPurchases
+            select custPurchases;
+        
+        foreach (IEnumerable<Purchase> purchaseSequence in query)
+            Console.WriteLine($"{nameof(purchaseSequence)} : [{string.Join(" ", purchaseSequence)}]");
+        
+        foreach (IEnumerable<Purchase> purchaseSequence in query)
+            foreach (Purchase purchase in purchaseSequence)
+                Console.WriteLine(purchase.Description);
+        
+    }
+    
+    /* Lookup */
+    
+    /* The Zip Operator */
     
 }
