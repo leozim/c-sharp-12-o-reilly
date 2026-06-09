@@ -107,7 +107,7 @@ internal class Program
             .Select(x => x.c.Name + " bought a " + x.p.Description);
     }
     
-    /* GROUP JOIN pg 736 */
+    /* GROUP JOIN */
     // GroupJoin is note currently supported in EF Core
     private static void GroupJoinNotSupportedByEFCore()
     {
@@ -136,7 +136,51 @@ internal class Program
     }
     
     /* Lookup */
-    
+    public static void LookUp()
+    {
+        var dbContext = new NutshellContext();
+        Customer[] customers = dbContext.Customers.ToArray();
+        Purchase[] purchases = dbContext.Purchases.ToArray();
+        
+        // first argument select the key and the second argument selects the objects
+        ILookup<int?, Purchase> purchLookup = purchases
+            .ToLookup(p => p.CustomerID, p => p);
+        
+        /*
+         * Ler um Lookup é igual Dicionários porém, o Lookup
+         * Retorna uma Sequência
+         */
+        foreach (Purchase p in purchLookup[1])
+            Console.WriteLine(p.Description);
+        
+        // Join is equivalent to using SelectMany on a lookup
+        var query = from c in customers
+            from p in purchLookup[c.ID]
+            select new {c.Name, p.Description, p.Price};
+        
+        var q2 = from c in customers 
+            from p in purchLookup [c.ID].DefaultIfEmpty() 
+            select new { 
+                c.Name, 
+                Descript = p == null ? null : p.Description,
+                Price = p == null ? (decimal?) null : p.Price 
+            };
+
+    }
     /* The Zip Operator */
+    public static void ZipOperator()
+    {
+        int[] numbers = {3, 5, 7};
+        string[] words = {"three", "five", "ignored"};
+        IEnumerable<string> zip = numbers
+            .Zip(words, (number, word) => $"{number} = {word}");
+    }
+    
+    /*
+     *
+     * ORDERING
+     * 
+     */
+    
     
 }
