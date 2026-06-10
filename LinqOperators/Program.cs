@@ -182,5 +182,30 @@ internal class Program
      * 
      */
     
-    
+    public static void OrderingByOperator()
+    {
+        string[] names = { "Tom" , "Dick", "Harry", "Jay"};
+        
+        // emits a sequence of names in alphabetical order
+        IEnumerable<string> query = names.OrderBy(s => s);
+        
+        // The following sorts names by length:
+        IEnumerable<string> queryByLength = names.OrderBy(s => s.Length);
+        
+        // resolving same leng with ThenBy
+        var queryThenBy = names
+            .OrderBy(s => s.Length)
+            .ThenBy(s => s);
+        
+        // You cane chain any number of ThenBy operators
+        var queryMultipleThenBy = names
+            .OrderBy(s => s.Length)
+            .ThenBy(s => s[1])
+            .ThenBy(s => s[0]);
+        // Here's the equivalent in query syntax
+        var q = 
+            from s in names
+            orderby s.Length, s[1], s[2]
+            select s;
+    }
 }
