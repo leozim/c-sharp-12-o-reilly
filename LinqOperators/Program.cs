@@ -208,4 +208,14 @@ internal class Program
             orderby s.Length, s[1], s[2]
             select s;
     }
+    
+    /*
+     *
+     * GROUPING
+     *
+     * GroupBy - Groups a sequence into subquences - SQL equivalents GROUP BY
+     * Chunk - Groups a sequence into arrays of a fixed size
+     */
+    
+    
 }
